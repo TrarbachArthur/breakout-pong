@@ -26,116 +26,48 @@ segment code
     	INT     10h
 		
 ;desenhar retas
-       
-		MOV		byte [cor],branco_intenso	;linha
-		MOV		AX,20                   	;x1
+	; cima
+		MOV		BX, 450 ; upper bound
+		MOV		byte [cor],branco_intenso
+		MOV		AX,0                   		;x1
 		PUSH	AX
-		MOV		AX,400                  	;y1
+		MOV		AX,BX                  	;y1
 		PUSH	AX
-		MOV		AX,620                  	;x2
+		MOV		AX,639                  	;x2
 		PUSH	AX
-		MOV		AX,400                  	;y2
-		PUSH	AX
-		CALL	line
-			
-		MOV		byte [cor],marrom			;antenas
-		MOV		AX,130
-		PUSH	AX
-		MOV		AX,270
-		PUSH	AX
-		MOV		AX,100
-		PUSH	AX
-		MOV		AX,300
+		MOV		AX,BX                  	;y2
 		PUSH	AX
 		CALL	line
-		
-		MOV		AX,130
-		PUSH	AX
-		MOV		AX,130
-		PUSH	AX
-		MOV		AX,100
-		PUSH	AX
-		MOV		AX,100
-		PUSH	AX
-		CALL	line
-		
-;desenha circulos 
-		MOV		byte [cor],azul				;cabeça
-		MOV		AX,200						;x
-		PUSH	AX
-		MOV		AX,200						;y
-		PUSH	AX
-		MOV		AX,100						;r
-		PUSH	AX
-		CALL	circle
 
-		MOV		byte [cor],verde			;corpo
-		MOV		AX,450
+	; baixo
+		MOV		BX, 10 ; lower bound
+		MOV		byte [cor],branco_intenso
+		MOV		AX,0                   	;x1
 		PUSH	AX
-		MOV		AX,200
+		MOV		AX,BX                  	;y1
 		PUSH	AX
-		MOV		AX,190
+		MOV		AX,639                  ;x2
 		PUSH	AX
-		CALL	circle
+		MOV		AX,BX                 	;y2
+		PUSH	AX
+		CALL	line
 		
-		MOV		AX,100						;circulos das antenas
-		PUSH	AX
-		MOV		AX,100
-		PUSH	AX
-		MOV		AX,10
-		PUSH	AX
-		CALL	circle
-		
-		MOV		AX,100
-		PUSH	AX
-		MOV		AX,300
-		PUSH	AX
-		MOV		AX,10
-		PUSH	AX
-		CALL	circle
-		
-		MOV		byte [cor],vermelho			;circulos vermelhos
-		MOV		AX,500
-		PUSH	AX
-		MOV		AX,300
-		PUSH	AX
-		MOV		AX,50
-		PUSH	AX
-		CALL	full_circle
-		
-		MOV		AX,500
-		PUSH	AX
-		MOV		AX,100
-		PUSH	AX
-		MOV		AX,50
-		PUSH	AX
-		CALL	full_circle
-		
-		MOV		AX,350
-		PUSH	AX
-		MOV		AX,200
-		PUSH	AX
-		MOV		AX,50
-		PUSH	AX
-		CALL	full_circle
-		
-;escrever uma mensagem
+;escrever titulo
 MSN: 
-		MOV 	CX,14						;número de caracteres
+		MOV 	CX,13						;número de caracteres
     	MOV    	BX,0			
     	MOV    	DH,0						;linha 0-29
     	MOV     DL,30						;coluna 0-79
-		MOV		byte [cor],azul
-l4:
+		MOV		byte [cor],branco_intenso
+render_title:
 		CALL	cursor
-		;MOV     DI,DS
-    	MOV     AL,[BX+mens]
+
+    	MOV     AL,[BX+title]
 		
 		CALL	caracter
     	INC		BX							;proximo caracter
 		INC		DL							;avanca a coluna
-		INC		byte[cor]					;mudar a cor para a seguinte
-    	LOOP    l4
+    	LOOP    render_title
 
 		MOV    	AH,08h
 		INT     21h
@@ -144,7 +76,18 @@ l4:
 	    INT  	10h
 		MOV     AX,4c00h
 		INT     21h
-		
+
+;desenha circulos 
+		MOV		byte [cor],azul_claro				;cabeça	
+		MOV		AX,320
+		PUSH	AX
+		MOV		AX,230 
+		PUSH	AX
+		MOV		AX,4
+		PUSH	AX
+		CALL	full_circle
+
+
 ;*******************************************************************
 
 segment data
@@ -191,7 +134,12 @@ linha   	    dw  	0
 coluna  	    dw  	0
 deltax		    dw		0
 deltay		    dw		0	
-mens    	    db  	'Funcao Grafica SE_I $' 
+title    	    db  	'Breakout Pong' 
+
+velX			db		1
+velY			db		1
+posX			db		320
+posY			db		230
 
 ;*************************************************************************
 segment stack stack

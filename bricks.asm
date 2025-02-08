@@ -150,8 +150,7 @@ check_brick_left:
     JL check_next_left_1
 
     ; Checking if brick still exists
-    MOV BX, [bricks_left+0]
-    CMP BX, 0
+    CMP byte [bricks_left+0], 0
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided
@@ -183,8 +182,7 @@ check_next_left_1:
     JL check_next_left_2
 
     ; Checking if brick still exists
-    MOV BX, [bricks_left+1]
-    CMP BX, 0
+    CMP byte [bricks_left+1], 0
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided
@@ -217,8 +215,7 @@ MOV AX, [brick_ys + 4]
     JL check_next_left_3
 
     ; Checking if brick still exists
-    MOV BX, [bricks_left+2]
-    CMP BX, 0
+    CMP byte [bricks_left+2], 0
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided
@@ -251,8 +248,7 @@ MOV AX, [brick_ys + 6]
     JL check_next_left_4
 
     ; Checking if brick still exists
-    MOV BX, [bricks_left+3]
-    CMP BX, 0
+    CMP byte [bricks_left+3], 0
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided
@@ -285,8 +281,7 @@ MOV AX, [brick_ys + 8]
     JL near check2
 
     ; Checking if brick still exists
-    MOV BX, [bricks_left+4]
-    CMP BX, 0
+    CMP byte [bricks_left+4], 0
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided
@@ -320,14 +315,13 @@ check_brick_right:
     JL check_next_right_1
 
     ; Checking if brick still exists
-    MOV BX, [bricks_right+0]
-    CMP BX, 0
+    CMP byte [bricks_right+0], 0
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided
     ;MOV byte [brick_colided], 1
     CALL colide_side
-    MOV byte [bricks_right+0], 0 ; Destroy brick
+    MOV byte [bricks_right+0], '0' ; Destroy brick
 
     ; Erase destroyed brick
     MOV byte [cor], preto
@@ -354,8 +348,7 @@ check_next_right_1:
     JL check_next_right_2
 
     ; Checking if brick still exists
-    MOV BX, [bricks_right+1]
-    CMP BX, 0
+    CMP byte [bricks_right+1], 0
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided
@@ -388,8 +381,7 @@ check_next_right_2:
     JL check_next_right_3
 
     ; Checking if brick still exists
-    MOV BX, [bricks_right+2]
-    CMP BX, 0
+    CMP byte [bricks_right+2], 0
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided
@@ -422,8 +414,7 @@ check_next_right_3:
     JL check_next_right_4
 
     ; Checking if brick still exists
-    MOV BX, [bricks_right+3]
-    CMP BX, 0
+    CMP byte [bricks_right+3], 0
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided
@@ -456,8 +447,7 @@ check_next_right_4:
     JL near check2
 
     ; Checking if brick still exists
-    MOV BX, [bricks_right+4]
-    CMP BX, 0
+    CMP byte [bricks_right+4], 0
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided

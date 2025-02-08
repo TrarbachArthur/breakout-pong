@@ -470,16 +470,16 @@ clear_screen:
 
 reset_game:
 	MOV byte [gameover], 0
-	MOV byte [bricks_left+0], '1'
-	MOV byte [bricks_left+1], '1'
-	MOV byte [bricks_left+2], '1'
-	MOV byte [bricks_left+3], '1'
-	MOV byte [bricks_left+4], '1'
-	MOV byte [bricks_right+0], '1'
-	MOV byte [bricks_right+1], '1'
-	MOV byte [bricks_right+2], '1'
-	MOV byte [bricks_right+3], '1'
-	MOV byte [bricks_right+4], '1'
+	MOV byte [bricks_left+0], 1
+	MOV byte [bricks_left+1], 1
+	MOV byte [bricks_left+2], 1
+	MOV byte [bricks_left+3], 1
+	MOV byte [bricks_left+4], 1
+	MOV byte [bricks_right+0], 1
+	MOV byte [bricks_right+1], 1
+	MOV byte [bricks_right+2], 1
+	MOV byte [bricks_right+3], 1
+	MOV byte [bricks_right+4], 1
 	MOV word [pos_x], 320
 	MOV word [pos_y], 240
 	MOV word [last_x], 0
@@ -563,8 +563,8 @@ brick_x1		dw		5
 brick_x2		dw		625
 brick_ys		dw		15, 107, 199, 291, 383	; 5 obstacles
 
-bricks_left		db		'11111'
-bricks_right	db		'11111'
+bricks_left		db		1,1,1,1,1
+bricks_right	db		1,1,1,1,1
 
 confirm_mens	db		'Deseja sair do jogo? (y/n)' ; 26 caracteres	
 

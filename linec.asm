@@ -4,6 +4,8 @@
 ;
 segment code
 
+global full_rectangle
+
 ;Inicializa os registradores
 ;org 100h
 ..start:
@@ -695,6 +697,54 @@ End_line:
 		POP		BP
 		RET		8
 
+
+; Função para desenhar um retangulo preenchido
+full_rectangle:
+	push 	bp
+	mov	 	bp,sp
+	pushf                        ;coloca os flags na pilha
+	push 	ax
+	push 	bx
+	push	cx
+	push	dx
+	push	si
+	push	di
+
+	mov		ax,[bp+10]    ; resgata xi
+	mov		bx,[bp+8]    ; resgata xf
+	mov		cx,[bp+6]    ; resgata yi
+	mov		dx,[bp+4]    ; resgata yf
+
+	cmp ax, cx
+	jb rec_pass
+	xchg ax, cx
+
+rec_pass:
+	cmp bx, dx
+	jb fill
+	xchg bx, dx
+
+fill:
+
+	push ax
+	push bx
+	push cx
+	push dx
+	call line
+
+	inc bx
+	cmp bx, dx
+	jle fill
+
+	POP		DI
+	POP		SI
+	POP		DX
+	POP		CX
+	POP		BX
+	POP		AX
+	POPF
+	POP		BP
+	RET		8
 
 ;*******************************************************************
 segment data

@@ -1,8 +1,10 @@
 ; Arthur Trarbach Sampaio
 
-extern line, full_circle, circle, cursor, caracter, plot_xy 
-global cor
-
+extern line, full_circle, circle, cursor, caracter, plot_xy
+extern draw_bricks, brick_colision
+global cor, brick_height, brick_width, brick_x1, brick_x2, brick_ys
+global bricks_left, bricks_right, brick_colided, pos_x, pos_y, ball_rad
+global colide_side, vel_x, vel_y
 segment code
 
 ..start:
@@ -23,6 +25,7 @@ segment code
 	INT     10h
 
 	CALL draw_bounds
+	CALL draw_bricks
 
 game_loop:
 
@@ -62,7 +65,7 @@ game_loop:
     PUSH    AX
     CALL    full_circle
 	; draw ball
-	MOV     byte [cor], azul_claro
+	MOV     byte [cor], branco_intenso
     MOV     AX, [pos_x]
     PUSH    AX
     MOV     AX, [pos_y]
@@ -298,6 +301,7 @@ check5:
 	CALL colide_side
 
 check6:
+	CALL brick_colision ; Check bricks and calls colide_side if needed
 
 	RET
 
@@ -406,6 +410,17 @@ p1_pad_bot		dw		215
 p2_pad_x		dw		600
 p2_pad_top		dw		275
 p2_pad_bot		dw		215
+
+brick_width	dw		10
+brick_height	dw		82
+brick_x1		dw		5
+brick_x2		dw		625
+brick_ys		dw		15, 107, 199, 291, 383	; 5 obstacles
+
+brick_colided db		0
+
+bricks_left		db		'11111'
+bricks_right	db		'11111'
 
 ;*************************************************************************
 segment stack stack

@@ -6,4 +6,5 @@ call nasm cursor
 call nasm caracter 
 call nasm plot_xy
 call nasm bricks
-call freelink main line fcircle circle cursor caracter plot_xy bricks
+call nasm menu
+call freelink main line fcircle circle cursor caracter plot_xy bricks menu

@@ -8,7 +8,7 @@ extern bricks_right
 extern colide_side
 extern pos_x, pos_y, ball_rad
 
-extern cor, brick_colided
+extern cor
 
 extern line
 
@@ -155,7 +155,6 @@ check_brick_left:
     JE near check2 ; Brick is already destroyed
 
     ; Brick colided
-    ;MOV byte [brick_colided], 1
     CALL colide_side
     MOV byte [bricks_left+0], 0 ; Destroy brick
 
